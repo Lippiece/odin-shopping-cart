@@ -14,7 +14,7 @@ const Items: React.FC<Props> = ({ count }) => {
     <List>
       {products.slice(0, count).map((product: any) => (
         <ListItem key={product.id}>
-          <Link to={`/products/${product.id}`}>
+          <Link to={`/odin-shopping-cart/products/${product.id}`}>
             <ListItemText
               primary={product.name}
               secondary={product.description}

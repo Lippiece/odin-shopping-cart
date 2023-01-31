@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <nav>
-      <Link to="/">
+      <Link to="/odin-shopping-cart">
         <h1>Logo</h1>
       </Link>
       <ul>
         <li>
-          <Link to="/products">Products</Link>
+          <Link to="/odin-shopping-cart/products">Products</Link>
         </li>
         <li>
-          <Link to="/cart">Cart</Link>
+          <Link to="/odin-shopping-cart/cart">Cart</Link>
         </li>
       </ul>
     </nav>

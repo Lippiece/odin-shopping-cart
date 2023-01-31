@@ -40,27 +40,27 @@ const root   = ReactDOM.createRoot(
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path="/"
+      path="/odin-shopping-cart"
       element={<App />}
     >
       <Route
-        path="/"
+        path="/odin-shopping-cart"
         element={<Home />}
       />
       <Route
-        path="/products"
+        path="/odin-shopping-cart/products"
         element={<Products />}
       >
         {products.map((product: any) => (
           <Route
-            path={`/products/${product.id}`}
+            path={`/odin-shopping-cart/products/${product.id}`}
             element={<Card item={product} />}
             key={product.id}
           />
         ))}
       </Route>
       <Route
-        path="/cart"
+        path="/odin-shopping-cart/cart"
         element={<Cart />}
       />
     </Route>

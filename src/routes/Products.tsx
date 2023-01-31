@@ -12,7 +12,7 @@ const Products = () => {
       <List>
         {products.map((product: any) => (
           <Link
-            to={`/products/${product.id}`}
+            to={`/odin-shopping-cart/products/${product.id}`}
             key={product.id}
           >
             <ListItem>

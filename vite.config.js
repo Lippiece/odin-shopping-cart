@@ -7,7 +7,7 @@ import viteCompression from "vite-plugin-compression";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base   : "./odin-shopping-cart/",
+  base   : "/odin-shopping-cart/",
   define : { "process.env": {} },
   plugins: [ react(), viteCompression() ],
   resolve: { alias: { util: "util/" } },
