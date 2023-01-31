@@ -1,0 +1,22 @@
+nav {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1rem;
+
+  background-color: #aaa;
+}
+
+nav > ul {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+
+  padding: 0 1rem;
+
+  list-style: none;
+}

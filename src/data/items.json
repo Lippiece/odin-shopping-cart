@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "Leather Backpack",
+    "description": "Stylish and durable leather backpack for everyday use.",
+    "price": 89.99,
+    "image_url": "https://www.example.com/leather-backpack.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Smart Watch",
+    "description": "Stay connected and track your fitness with this sleek smart watch.",
+    "price": 199.99,
+    "image_url": "https://www.example.com/smart-watch.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Noise Cancelling Headphones",
+    "description": "Experience high-quality audio with these noise cancelling headphones.",
+    "price": 129.99,
+    "image_url": "https://www.example.com/noise-cancelling-headphones.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Bluetooth Speaker",
+    "description": "Enjoy your favorite music with this portable Bluetooth speaker.",
+    "price": 49.99,
+    "image_url": "https://www.example.com/bluetooth-speaker.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Bluetooth Headphones",
+    "description": "Listen to your favorite music wirelessly with these Bluetooth headphones.",
+    "price": 99.99,
+    "image_url": "https://www.example.com/bluetooth-headphones.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Wireless Earbuds",
+    "description": "Enjoy your favorite music with these wireless earbuds.",
+    "price": 59.99,
+    "image_url": "https://www.example.com/wireless-earbuds.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Wireless Mouse",
+    "description": "Experience smooth and precise navigation with this wireless mouse.",
+    "price": 29.99,
+    "image_url": "https://www.example.com/wireless-mouse.jpg"
+  },
+  {
+    "id": 8,
+    "name": "Wireless Keyboard",
+    "description": "Improve your productivity with this wireless keyboard.",
+    "price": 39.99,
+    "image_url": "https://www.example.com/wireless-keyboard.jpg"
+  },
+  {
+    "id": 9,
+    "name": "Laptop Backpack",
+    "description": "Protect your laptop and other valuables with this durable backpack.",
+    "price": 49.99,
+    "image_url": "https://www.example.com/laptop-backpack.jpg"
+  },
+  {
+    "id": 10,
+    "name": "Laptop Sleeve",
+    "description": "Protect your laptop with this durable sleeve.",
+    "price": 24.99,
+    "image_url": "https://www.example.com/laptop-sleeve.jpg"
+  },
+  {
+    "id": 11,
+    "name": "Laptop Case",
+    "description": "Protect your laptop with this durable case.",
+    "price": 34.99,
+    "image_url": "https://www.example.com/laptop-case.jpg"
+  },
+  {
+    "id": 12,
+    "name": "Laptop Stand",
+    "description": "Elevate your laptop and improve your posture with this laptop stand.",
+    "price": 14.99,
+    "image_url": "https://www.example.com/laptop-stand.jpg"
+  }
+]

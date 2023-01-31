@@ -1,0 +1,42 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.2",
+    "@testing-library/user-event": "^14.4.3",
+    "rambda": "^7.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.7.0",
+    "sanctuary": "^3.1.0",
+    "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@types/sanctuary": "^3.1.0",
+    "@vitejs/plugin-react": "^3.0.1",
+    "gh-pages": "^4.0.0",
+    "jsdom": "^20.0.3",
+    "vite": "^4.0.4",
+    "vite-plugin-compression": "^0.5.1",
+    "vitest": "^0.26.3"
+  },
+  "engines": {
+    "node": ">=19.0.0"
+  },
+  "engineStrict": true,
+  "name": "lippeice-vite-react-routers",
+  "private": false,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 3000",
+    "preview": "vite build && vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch"
+  },
+  "type": "module",
+  "version": "1.0.0"
+}
