@@ -7,7 +7,7 @@ const Home = () => {
       <h1>Home</h1>
       <p>Welcome to the home page!</p>
       <h2>Random picks:</h2>
-      <Items count={3} />
+      <Items random={true} />
     </div>
   );
 };
