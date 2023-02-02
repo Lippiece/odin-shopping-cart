@@ -3,6 +3,7 @@ import products from "../data/items.json";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
 
 const Products = () => {
   return (
@@ -11,7 +12,8 @@ const Products = () => {
       <h1>Products</h1>
       <List>
         {products.map((product: any) => (
-          <Link
+          <ListItemButton
+            component={Link}
             to={`/odin-shopping-cart/products/${product.id}`}
             key={product.id}
           >
@@ -21,7 +23,7 @@ const Products = () => {
                 secondary={product.description}
               />
             </ListItem>
-          </Link>
+          </ListItemButton>
         ))}
       </List>
     </>
