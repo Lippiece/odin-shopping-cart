@@ -19,9 +19,9 @@ const theme = createTheme({
   palette: {
     background: {
       default: "#121212",
-      paper  : "#1f1f1f",
+      paper: "#1f1f1f",
     },
-    mode   : "dark",
+    mode: "dark",
     primary: {
       main: "#ff3d00",
     },
@@ -34,8 +34,8 @@ const theme = createTheme({
   },
 });
 
-const root   = ReactDOM.createRoot(
-  document.querySelector("#root") as HTMLElement
+const root = ReactDOM.createRoot(
+  document.querySelector("#root") as HTMLElement,
 );
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,10 +61,10 @@ const router = createBrowserRouter(
       </Route>
       <Route
         path="/odin-shopping-cart/cart"
-        element={<Cart />}
+        element={<Cart ids={[1, 2]} />}
       />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
 root.render(
@@ -73,5 +73,5 @@ root.render(
       <CssBaseline />
       <RouterProvider router={router} />
     </ThemeProvider>
-  </StrictMode>
+  </StrictMode>,
 );

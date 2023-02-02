@@ -16,8 +16,6 @@ export default defineConfig({
     clearMocks : true,
     environment: "jsdom",
     globals    : true,
-    open       : true,
-    ui         : true,
     update     : true,
   },
 });
