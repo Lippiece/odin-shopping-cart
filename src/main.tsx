@@ -10,6 +10,7 @@ import {
 
 import App from "./App";
 import Card from "./components/Card";
+import { CartProvider } from "./context/CartContext";
 import products from "./data/items.json";
 import Cart from "./routes/Cart";
 import Home from "./routes/Home";
@@ -69,10 +70,12 @@ const router = createBrowserRouter(
 
 root.render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <CartProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </CartProvider>
   </StrictMode>
 );
 

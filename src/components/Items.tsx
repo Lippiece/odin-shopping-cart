@@ -7,9 +7,11 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 
 import Product from "../@types/Product";
+import { useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
 
 const Item = ({ product }: { product: Product }) => {
+  const dispatch = useCartDispatch();
   return (
     <ListItem>
       <ListItemButton
@@ -20,7 +22,14 @@ const Item = ({ product }: { product: Product }) => {
           primary={product.name}
           secondary={product.description}
         />
-        <ListItemButton>
+        <ListItemButton
+          onClick={() =>
+            dispatch({
+              payload: product,
+              type   : "added",
+            })
+          }
+        >
           <ListItemIcon>
             <Add />
           </ListItemIcon>

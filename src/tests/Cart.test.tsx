@@ -1,6 +1,6 @@
 /* eslint-disable fp/no-unused-expression */
 /* eslint-disable fp/no-nil */
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
@@ -20,12 +20,12 @@ const Items = () => {
           onClick={() =>
             dispatch({
               payload: {
-                description: "Product description",
+                description: "Added description",
                 id         : 1,
-                name       : "Product name",
+                name       : "Added item",
                 price      : 1,
               },
-              type: "added an item",
+              type: "added",
             })
           }
         >
@@ -41,41 +41,62 @@ import Home from "../routes/Home"; // eslint-disable-line
 import Products from "../routes/Products"; // eslint-disable-line
 
 const MockedRouter = () => (
-  <CartProvider>
-    <MemoryRouter
-      initialEntries={[
-        "/odin-shopping-cart",
-        "/odin-shopping-cart/products",
-        "/odin-shopping-cart/cart",
-        "/odin-shopping-cart/home",
-      ]}
-    >
-      <Routes>
+  <MemoryRouter
+    initialEntries={[
+      "/odin-shopping-cart",
+      "/odin-shopping-cart/products",
+      "/odin-shopping-cart/cart",
+      "/odin-shopping-cart/home",
+    ]}
+  >
+    <Routes>
+      <Route
+        path="/odin-shopping-cart"
+        element={<App />}
+      >
         <Route
-          path="/odin-shopping-cart"
-          element={<App />}
-        >
-          <Route
-            path="/odin-shopping-cart/home"
-            element={<Home />}
-          />
-          <Route
-            path="/odin-shopping-cart/products"
-            element={<Products />}
-          />
-          <Route
-            path="/odin-shopping-cart/cart"
-            element={<Cart />}
-          />
-        </Route>
-      </Routes>
-    </MemoryRouter>
-  </CartProvider>
+          path="/odin-shopping-cart/home"
+          element={<Home />}
+        />
+        <Route
+          path="/odin-shopping-cart/products"
+          element={<Products />}
+        />
+        <Route
+          path="/odin-shopping-cart/cart"
+          element={<Cart />}
+        />
+      </Route>
+    </Routes>
+  </MemoryRouter>
 );
 
 describe("Cart", () => {
   test("can add items to the cart", async () => {
-    render(<MockedRouter />);
+    render(
+      <CartProvider>
+        <MockedRouter />
+      </CartProvider>
+    );
+    userEvent.setup();
+
+    // add a product to the cart
+    userEvent.click(screen.getByRole("button", { name: /add to cart/iu }));
+
+    // navigate to the cart
+    userEvent.click(screen.getByRole("link", { name: "Cart" }));
+
+    // check that the product is in the cart
+    expect(await screen.findByText(/added item/iu));
+  });
+
+  test("can remove items from the cart", async () => {
+    render(
+      <CartProvider>
+        <MockedRouter />
+      </CartProvider>
+    );
+
     userEvent.setup();
 
     // add a product to the cart
@@ -85,6 +106,12 @@ describe("Cart", () => {
     userEvent.click(screen.getByText("Cart"));
 
     // check that the product is in the cart
-    expect(await screen.findByText(/product name/iu));
+    expect(await screen.findByText(/added item/iu));
+
+    // remove the product from the cart
+    userEvent.click(await screen.findByRole("button", { name: /remove/iu }));
+
+    // check that the product is not in the cart
+    await waitFor(() => expect(screen.queryByText(/added item/iu)).toBeNull());
   });
 });
