@@ -1,6 +1,8 @@
+import Add from "@mui/icons-material/Add";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 
@@ -9,7 +11,7 @@ import products from "../data/items.json";
 
 const Item = ({ product }: { product: Product }) => {
   return (
-    <ListItem key={product.id}>
+    <ListItem>
       <ListItemButton
         component={Link}
         to={`/odin-shopping-cart/products/${product.id}`}
@@ -18,6 +20,11 @@ const Item = ({ product }: { product: Product }) => {
           primary={product.name}
           secondary={product.description}
         />
+        <ListItemButton>
+          <ListItemIcon>
+            <Add />
+          </ListItemIcon>
+        </ListItemButton>
       </ListItemButton>
     </ListItem>
   );
@@ -37,6 +44,11 @@ const Items: React.FC<ItemsProps> = ({ random }) => {
 const getRandomItems              = (count: number) =>
   [ ...products ].sort(() => Math.random() - 0.5).slice(0, count);
 
-const displayItem = (product: any) => <Item product={product} />;
+const displayItem = (product: any) => (
+  <Item
+    product={product}
+    key={product.id}
+  />
+);
 
 export default Items;

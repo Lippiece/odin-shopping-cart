@@ -2,31 +2,89 @@
 /* eslint-disable fp/no-nil */
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 
-import products from "../data/items.json";
+import App from "../App";
+import { CartProvider, useCartDispatch } from "../context/CartContext";
 import Cart from "../routes/Cart";
 
+const Items = () => {
+  const dispatch = useCartDispatch();
+  return (
+    <ul>
+      <li>
+        <h3>Product name</h3>
+        <p>Product description</p>
+        <button
+          type="button"
+          onClick={() =>
+            dispatch({
+              payload: {
+                description: "Product description",
+                id         : 1,
+                name       : "Product name",
+                price      : 1,
+              },
+              type: "added an item",
+            })
+          }
+        >
+          Add to cart
+        </button>
+      </li>
+    </ul>
+  );
+};
+vi.doMock("../components/Items.tsx", () => ({ default: Items }));
+
+import Home from "../routes/Home"; // eslint-disable-line
+import Products from "../routes/Products"; // eslint-disable-line
+
+const MockedRouter = () => (
+  <CartProvider>
+    <MemoryRouter
+      initialEntries={[
+        "/odin-shopping-cart",
+        "/odin-shopping-cart/products",
+        "/odin-shopping-cart/cart",
+        "/odin-shopping-cart/home",
+      ]}
+    >
+      <Routes>
+        <Route
+          path="/odin-shopping-cart"
+          element={<App />}
+        >
+          <Route
+            path="/odin-shopping-cart/home"
+            element={<Home />}
+          />
+          <Route
+            path="/odin-shopping-cart/products"
+            element={<Products />}
+          />
+          <Route
+            path="/odin-shopping-cart/cart"
+            element={<Cart />}
+          />
+        </Route>
+      </Routes>
+    </MemoryRouter>
+  </CartProvider>
+);
+
 describe("Cart", () => {
-  test("should display products by given ids", () => {
-    const toDisplay = [ 1, 2, 3 ];
-    render(<Cart ids={toDisplay} />);
+  test("can add items to the cart", async () => {
+    render(<MockedRouter />);
+    userEvent.setup();
 
-    products
-      .slice(0, toDisplay.length)
-      .map(product => product.name)
-      .map(name => expect(screen.getByText(name)));
-  });
+    // add a product to the cart
+    userEvent.click(screen.getByRole("button", { name: /add/iu }));
 
-  test("should remove product from cart when clicked on a bin", async () => {
-    const toDisplay = [ 1, 2, 3 ];
-    render(<Cart ids={toDisplay} />);
+    // navigate to the cart
+    userEvent.click(screen.getByText("Cart"));
 
-    const bin = screen.getByTestId("bin-1");
-    userEvent.click(bin);
-
-    const removedProductName = products.find(product => product.id === 1)?.name;
-    await waitFor(() =>
-      expect(screen.queryByText(removedProductName)).toBeNull()
-    );
+    // check that the product is in the cart
+    expect(await screen.findByText(/product name/iu));
   });
 });
