@@ -1,55 +1,44 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import ListItemText from "@mui/material/ListItemText";
 import { useEffect, useState } from "react";
 
 import Product from "../@types/Product";
-import items from "../data/items.json";
+import productsJSON from "../data/items.json";
 
-const itemsTyped = items as Product[];
+const products: Product[] = productsJSON;
 
 const Cart: React.FC<{ ids: number[] }> = ({ ids }) => {
-  const [ currentItems, setCurrentItems ] = useState<Product[]>([]);
+  const [ productsData, setProductsData ] = useState<Product[]>([]);
+
   useEffect(() => {
-    setCurrentItems(getCurrentItems(ids));
+    const retrievedProductsData = products.filter(product =>
+      ids.includes(product.id)
+    );
+    setProductsData(retrievedProductsData);
   }, [ ids ]);
+
+  const [ cart, setCart ] = useState(ids);
+
   return (
-    <>
-      <List>
-        {currentItems.map(item => (
-          <ListItem key={item.id}>
-            <ListItemText
-              primary={item.name}
-              secondary={`$${item.price}`}
-            />
-            <ListItemSecondaryAction>
-              <IconButton edge="end">
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-        <ListItem>
-          <ListItemText
-            primary="Total"
-            secondary={`$${calculateTotal(currentItems)}`}
-          />
-        </ListItem>
-      </List>
-    </>
+    <ul>
+      {productsData
+        .filter(product => cart.includes(product.id))
+        .map(product => {
+          const { name, description, id } = product;
+
+          return (
+            <li key={id}>
+              <h3>{name}</h3>
+              <p>{description}</p>
+              <button
+                data-testid={`bin-${id}`}
+                onClick={() => setCart(cart.filter(cartId => cartId !== id))}
+              >
+                Remove
+              </button>
+            </li>
+          );
+        })}
+    </ul>
   );
 };
-
-const calculateTotal = (products: Product[]) => {
-  return products.reduce((total, product) => {
-    return total + product.price;
-  }, 0);
-};
-
-const getCurrentItems = (ids: number[]) =>
-  itemsTyped.filter(item => ids.includes(item.id));
 
 export default Cart;
