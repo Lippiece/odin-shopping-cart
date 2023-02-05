@@ -6,31 +6,21 @@ import setMap from "../logic/setMap";
 
 const Cart = () => {
   const cart                = useCart();
-  const [ total, setTotal ] = useState(0);
+  const [ total, setTotal ] = useState<string>("0");
   const dispatch            = useCartDispatch();
 
   useEffect(() => {
     cart.size > 0 && setTotal(calculateTotal(cart));
   }, [ cart ]);
 
-  const handleQuantity = {
-    decrease: (cartItem: CartItem) => () =>
-      dispatch({
-        payload: {
-          product : cartItem.product,
-          quantity: cartItem.quantity - 1,
-        },
-        type: "change quantity",
-      }),
-    increase: (cartItem: CartItem) => () =>
-      dispatch({
-        payload: {
-          product : cartItem.product,
-          quantity: cartItem.quantity + 1,
-        },
-        type: "change quantity",
-      }),
-  };
+  const changeQuantity = (cartItem: CartItem, quantity: number) => () =>
+    dispatch({
+      payload: {
+        ...cartItem,
+        quantity: cartItem.quantity + quantity,
+      },
+      type: "change quantity",
+    });
 
   return (
     <>
@@ -42,13 +32,13 @@ const Cart = () => {
               <h3>{`${cartItem.product.name} - ${cartItem.quantity}`}</h3>
               <button
                 type="button"
-                onClick={handleQuantity.increase(cartItem)}
+                onClick={changeQuantity(cartItem, 1)}
               >
                 +
               </button>
               <button
                 type="button"
-                onClick={handleQuantity.decrease(cartItem)}
+                onClick={changeQuantity(cartItem, -1)}
               >
                 -
               </button>

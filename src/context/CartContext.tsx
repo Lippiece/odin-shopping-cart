@@ -27,21 +27,18 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-const safeAdd = (maybeNumber: number | undefined, number: number) =>
-  (maybeNumber ? maybeNumber + number : number);
+const increasedQuantity = (state: Set<CartItem>) =>
+  setMap(state, item => ({ ...item, quantity: item.quantity + 1 }));
 
 const handleCartAdd = (state: Set<CartItem>, action: Action) => {
   const { product, quantity } = action.payload;
-
-  const increasedQuantity = setMap(state, (item: CartItem) =>
-    (item.product.id === product.id
-      ? { ...item, quantity: safeAdd(item.quantity, quantity) }
-      : item)
+  const existingProduct       = [ ...state ].find(
+    item => item.product.id === product.id
   );
 
-  const added = increasedQuantity.add(action.payload);
-
-  return added;
+  return existingProduct
+    ? increasedQuantity(state)
+    : new Set([ ...state, action.payload ]);
 };
 
 const handleQuantity = (state: Set<CartItem>, action: Action) => {
