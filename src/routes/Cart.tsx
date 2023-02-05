@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import Product from "../@types/Product";
+import CartItem from "../@types/CartItem";
 import { useCart, useCartDispatch } from "../context/CartContext";
+import setMap from "../logic/setMap";
 
 const Cart = () => {
   const cart                = useCart();
@@ -9,24 +10,54 @@ const Cart = () => {
   const dispatch            = useCartDispatch();
 
   useEffect(() => {
-    cart?.length > 0 &&
-      setTotal(cart.reduce((accumulator, item) => accumulator + item.price, 0));
+    cart.size > 0 && setTotal(calculateTotal(cart));
   }, [ cart ]);
+
+  const handleQuantity = {
+    decrease: (cartItem: CartItem) => () =>
+      dispatch({
+        payload: {
+          product : cartItem.product,
+          quantity: cartItem.quantity - 1,
+        },
+        type: "change quantity",
+      }),
+    increase: (cartItem: CartItem) => () =>
+      dispatch({
+        payload: {
+          product : cartItem.product,
+          quantity: cartItem.quantity + 1,
+        },
+        type: "change quantity",
+      }),
+  };
 
   return (
     <>
       <h2>Cart</h2>
       <ul>
-        {cart?.length > 0 &&
-          cart.map((product: Product) => (
-            <li key={product.id}>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p>{product.price}</p>
+        {cart.size > 0 &&
+          setMap(cart, cartItem => (
+            <li key={cartItem.product.id}>
+              <h3>{`${cartItem.product.name} - ${cartItem.quantity}`}</h3>
+              <button
+                type="button"
+                onClick={handleQuantity.increase(cartItem)}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                onClick={handleQuantity.decrease(cartItem)}
+              >
+                -
+              </button>
+              <p>{cartItem.product.description}</p>
+              <p>{cartItem.product.price}</p>
               <button
                 type="button"
                 onClick={() =>
-                  dispatch({ payload: product, type: "removed an item" })
+                  dispatch({ payload: cartItem, type: "removed an item" })
                 }
               >
                 Remove
@@ -38,5 +69,13 @@ const Cart = () => {
     </>
   );
 };
+
+const calculateTotal = (cart: Set<CartItem>) =>
+  [ ...cart ]
+    .reduce(
+      (accumulator, item) => accumulator + item.product.price * item.quantity,
+      0
+    )
+    .toFixed(2);
 
 export default Cart;

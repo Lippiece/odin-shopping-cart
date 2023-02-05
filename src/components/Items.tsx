@@ -10,7 +10,7 @@ import Product from "../@types/Product";
 import { useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
 
-const Item = ({ product }: { product: Product }) => {
+const Item: React.FC<{ product: Product }> = ({ product }) => {
   const dispatch = useCartDispatch();
   return (
     <ListItem>
@@ -25,8 +25,11 @@ const Item = ({ product }: { product: Product }) => {
         <ListItemButton
           onClick={() =>
             dispatch({
-              payload: product,
-              type   : "added",
+              payload: {
+                product,
+                quantity: 1,
+              },
+              type: "added",
             })
           }
         >

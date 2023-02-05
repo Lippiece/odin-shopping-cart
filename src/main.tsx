@@ -8,13 +8,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import Product from "./@types/Product";
 import App from "./App";
-import Card from "./components/Card";
+import ProductCard from "./components/ProductCard";
 import { CartProvider } from "./context/CartContext";
-import products from "./data/items.json";
+import productsJSON from "./data/items.json";
 import Cart from "./routes/Cart";
 import Home from "./routes/Home";
 import Products from "./routes/Products";
+
+const products: Product[] = productsJSON;
 
 const theme = createTheme({
   palette: {
@@ -52,10 +55,10 @@ const router = createBrowserRouter(
         path="/odin-shopping-cart/products"
         element={<Products />}
       >
-        {products.map((product: any) => (
+        {products.map(product => (
           <Route
             path={`/odin-shopping-cart/products/${product.id}`}
-            element={<Card item={product} />}
+            element={<ProductCard product={product} />}
             key={product.id}
           />
         ))}

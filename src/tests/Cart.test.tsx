@@ -1,6 +1,6 @@
 /* eslint-disable fp/no-unused-expression */
 /* eslint-disable fp/no-nil */
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
@@ -20,10 +20,13 @@ const Items = () => {
           onClick={() =>
             dispatch({
               payload: {
-                description: "Added description",
-                id         : 1,
-                name       : "Added item",
-                price      : 1,
+                product: {
+                  description: "Added description",
+                  id         : 1,
+                  name       : "Added item",
+                  price      : 963,
+                },
+                quantity: 1,
               },
               type: "added",
             })
@@ -80,13 +83,9 @@ describe("Cart", () => {
     );
     userEvent.setup();
 
-    // add a product to the cart
     userEvent.click(screen.getByRole("button", { name: /add to cart/iu }));
-
-    // navigate to the cart
     userEvent.click(screen.getByRole("link", { name: "Cart" }));
 
-    // check that the product is in the cart
     expect(await screen.findByText(/added item/iu));
   });
 
@@ -96,22 +95,69 @@ describe("Cart", () => {
         <MockedRouter />
       </CartProvider>
     );
-
     userEvent.setup();
 
-    // add a product to the cart
     userEvent.click(screen.getByRole("button", { name: /add/iu }));
-
-    // navigate to the cart
     userEvent.click(screen.getByText("Cart"));
-
-    // check that the product is in the cart
     expect(await screen.findByText(/added item/iu));
-
-    // remove the product from the cart
     userEvent.click(await screen.findByRole("button", { name: /remove/iu }));
 
-    // check that the product is not in the cart
     await waitFor(() => expect(screen.queryByText(/added item/iu)).toBeNull());
+  });
+
+  describe("quantity", () => {
+    test("adding the same item twice increases the quantity", async () => {
+      render(
+        <CartProvider>
+          <MockedRouter />
+        </CartProvider>
+      );
+      userEvent.setup();
+
+      userEvent.click(screen.getByRole("button", { name: /add/iu }));
+      userEvent.click(screen.getByRole("button", { name: /add/iu }));
+      userEvent.click(screen.getByText("Cart"));
+
+      expect(await screen.findByText(/added item - 2/iu));
+    });
+
+    test("can increase and decrease quantity", async () => {
+      render(
+        <CartProvider>
+          <MockedRouter />
+        </CartProvider>
+      );
+      userEvent.setup();
+
+      userEvent.click(screen.getByRole("button", { name: /add/iu }));
+      userEvent.click(screen.getByText("Cart"));
+      expect(await screen.findByText(/added item/iu));
+      userEvent.click(screen.getByRole("button", { name: /\+/u }));
+
+      expect(await screen.findByText(/added item - 2/iu));
+
+      userEvent.click(screen.getByRole("button", { name: /-/u }));
+
+      expect(await screen.findByText(/added item/iu));
+    });
+
+    test("remove item when quantity is 0", async () => {
+      render(
+        <CartProvider>
+          <MockedRouter />
+        </CartProvider>
+      );
+      userEvent.setup();
+
+      userEvent.click(screen.getByRole("button", { name: /add/iu }));
+      userEvent.click(screen.getByText("Cart"));
+      expect(await screen.findByText(/added item/iu));
+
+      userEvent.click(screen.getByRole("button", { name: /-/u }));
+
+      await waitFor(() =>
+        expect(screen.queryByText(/added item/iu)).toBeNull()
+      );
+    });
   });
 });
