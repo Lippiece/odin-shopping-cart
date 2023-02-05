@@ -21,9 +21,9 @@ const Items = () => {
             dispatch({
               payload: {
                 product: {
-                  description: "Added description",
+                  description: "Test description",
                   id         : 1,
-                  name       : "Added item",
+                  name       : "Test item",
                   price      : 963,
                 },
                 quantity: 1,
@@ -89,7 +89,7 @@ describe("Cart", () => {
     userEvent.click(screen.getByRole("button", { name: /add to cart/iu }));
     userEvent.click(screen.getByRole("link", { name: "Cart" }));
 
-    expect(await screen.findByText(/added item/iu));
+    expect(await screen.findByText(/Test item/iu));
   });
 
   test("can remove items from the cart", async () => {
@@ -102,10 +102,10 @@ describe("Cart", () => {
 
     userEvent.click(screen.getByRole("button", { name: /add/iu }));
     userEvent.click(screen.getByText("Cart"));
-    expect(await screen.findByText(/added item/iu));
+    expect(await screen.findByText(/Test item/iu));
     userEvent.click(await screen.findByRole("button", { name: /remove/iu }));
 
-    await waitFor(() => expect(screen.queryByText(/added item/iu)).toBeNull());
+    await waitFor(() => expect(screen.queryByText(/Test item/iu)).toBeNull());
   });
 
   describe("quantity", () => {
@@ -121,7 +121,7 @@ describe("Cart", () => {
       userEvent.click(screen.getByRole("button", { name: /add/iu }));
       userEvent.click(screen.getByText("Cart"));
 
-      expect(await screen.findByText(/added item - 2/iu));
+      expect(await screen.findByText(/Test item - 2/iu));
     });
 
     test("can increase and decrease quantity", async () => {
@@ -134,14 +134,14 @@ describe("Cart", () => {
 
       userEvent.click(screen.getByRole("button", { name: /add/iu }));
       userEvent.click(screen.getByText("Cart"));
-      expect(await screen.findByText(/added item/iu));
+      expect(await screen.findByText(/Test item/iu));
       userEvent.click(screen.getByRole("button", { name: /\+/u }));
 
-      expect(await screen.findByText(/added item - 2/iu));
+      expect(await screen.findByText(/Test item - 2/iu));
 
       userEvent.click(screen.getByRole("button", { name: /-/u }));
 
-      expect(await screen.findByText(/added item/iu));
+      expect(await screen.findByText(/Test item/iu));
     });
 
     test("remove item when quantity is 0", async () => {
@@ -154,13 +154,11 @@ describe("Cart", () => {
 
       userEvent.click(screen.getByRole("button", { name: /add/iu }));
       userEvent.click(screen.getByText("Cart"));
-      expect(await screen.findByText(/added item/iu));
+      expect(await screen.findByText(/Test item/iu));
 
       userEvent.click(screen.getByRole("button", { name: /-/u }));
 
-      await waitFor(() =>
-        expect(screen.queryByText(/added item/iu)).toBeNull()
-      );
+      await waitFor(() => expect(screen.queryByText(/Test item/iu)).toBeNull());
     });
   });
 
