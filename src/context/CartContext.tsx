@@ -1,5 +1,4 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
-import { h } from "vitest/dist/index-761e769b";
 
 import CartItem from "../@types/CartItem";
 import setMap from "../logic/setMap";
@@ -60,6 +59,12 @@ const switcher    = {
   default          : () => console.error("Invalid action type"),
   "removed an item": (state: Set<CartItem>, action: Action) =>
     state.delete(action.payload),
+  "retrieve local data": (_state: Set<CartItem>, action: Action) =>
+    action.payload,
+  "store data locally": (state: Set<CartItem>) => {
+    localStorage.setItem("cart", JSON.stringify([ ...state ]));
+    return state;
+  },
 };
 const cartReducer = (state: Set<CartItem>, action: Action) =>
   (switcher[ action.type ] || switcher.default)(state, action);

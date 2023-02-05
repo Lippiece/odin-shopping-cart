@@ -75,6 +75,9 @@ const MockedRouter = () => (
 );
 
 describe("Cart", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
   test("can add items to the cart", async () => {
     render(
       <CartProvider>
@@ -160,4 +163,6 @@ describe("Cart", () => {
       );
     });
   });
+
+  test("items save to local storage", async () => {});
 });
