@@ -10,6 +10,17 @@ import Product from "../@types/Product";
 import { useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
 
+interface ItemsProps {
+  random: boolean;
+}
+const Items: React.FC<ItemsProps> = ({ random }) => {
+  return (
+    <List>
+      {random ? getRandomItems(3).map(displayItem) : products.map(displayItem)}
+    </List>
+  );
+};
+
 const Item: React.FC<{ product: Product }> = ({ product }) => {
   const dispatch = useCartDispatch();
   return (
@@ -24,7 +35,7 @@ const Item: React.FC<{ product: Product }> = ({ product }) => {
         />
         <ListItemButton
           className="child-clickable"
-          onClick={event =>
+          onClick={() =>
             dispatch({
               payload: {
                 product,
@@ -43,18 +54,7 @@ const Item: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
-interface ItemsProps {
-  random: boolean;
-}
-
-const Items: React.FC<ItemsProps> = ({ random }) => {
-  return (
-    <List>
-      {random ? getRandomItems(3).map(displayItem) : products.map(displayItem)}
-    </List>
-  );
-};
-const getRandomItems              = (count: number) =>
+const getRandomItems = (count: number) =>
   [ ...products ].sort(() => Math.random() - 0.5).slice(0, count);
 
 const displayItem = (product: any) => (

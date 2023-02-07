@@ -4,83 +4,107 @@
     "id": 1,
     "imageUrl": "1",
     "name": "Leather Backpack",
-    "price": 89.99
+    "price": 89.99,
+    "tags": ["leather", "backpack", "everyday", "style"],
+    "deliveryDate": "9999-12-15"
   },
   {
     "description": "Stay connected and track your fitness with this sleek smart watch.",
     "id": 2,
     "imageUrl": "2",
     "name": "Smart Watch",
-    "price": 199.99
+    "price": 199.99,
+    "tags": ["smartwatch", "fitness", "connect", "track"],
+    "deliveryDate": "9999-11-12"
   },
   {
     "description": "Experience high-quality audio with these noise cancelling headphones.",
     "id": 3,
     "imageUrl": "3",
     "name": "Noise Cancelling Headphones",
-    "price": 129.99
+    "price": 129.99,
+    "tags": ["noise cancelling", "headphones", "high quality", "audio"],
+    "deliveryDate": "9999-10-09"
   },
   {
     "description": "Enjoy your favorite music with this portable Bluetooth speaker.",
     "id": 4,
     "imageUrl": "4",
     "name": "Bluetooth Speaker",
-    "price": 49.99
+    "price": 49.99,
+    "tags": ["bluetooth", "speaker", "portable", "music"],
+    "deliveryDate": "9999-09-06"
   },
   {
     "description": "Listen to your favorite music wirelessly with these Bluetooth headphones.",
     "id": 5,
     "imageUrl": "5",
     "name": "Bluetooth Headphones",
-    "price": 99.99
+    "price": 99.99,
+    "tags": ["bluetooth", "headphones", "music", "wireless"],
+    "deliveryDate": "9999-08-03"
   },
   {
     "description": "Enjoy your favorite music with these wireless earbuds.",
     "id": 6,
     "imageUrl": "6",
     "name": "Wireless Earbuds",
-    "price": 59.99
+    "price": 59.99,
+    "tags": ["earbuds", "wireless", "music", "favorite"],
+    "deliveryDate": "9999-07-01"
   },
   {
     "description": "Experience smooth and precise navigation with this wireless mouse.",
     "id": 7,
     "imageUrl": "7",
     "name": "Wireless Mouse",
-    "price": 29.99
+    "price": 29.99,
+    "tags": ["mouse", "wireless", "navigation", "precise"],
+    "deliveryDate": "9999-05-28"
   },
   {
     "description": "Improve your productivity with this wireless keyboard.",
     "id": 8,
     "imageUrl": "8",
     "name": "Wireless Keyboard",
-    "price": 39.99
+    "price": 39.99,
+    "tags": ["keyboard", "wireless", "productivity", "improve"],
+    "deliveryDate": "9999-04-25"
   },
   {
     "description": "Protect your laptop and other valuables with this durable backpack.",
     "id": 9,
     "imageUrl": "9",
     "name": "Laptop Backpack",
-    "price": 49.99
+    "price": 49.99,
+    "tags": ["backpack", "laptop", "valuables", "durable"],
+    "deliveryDate": "9999-03-22"
   },
   {
     "description": "Protect your laptop with this durable sleeve.",
     "id": 10,
     "imageUrl": "10",
     "name": "Laptop Sleeve",
-    "price": 24.99
+    "price": 24.99,
+    "tags": ["sleeve", "laptop", "durable", "protect"],
+    "deliveryDate": "9999-02-19"
   },
   {
     "description": "Protect your laptop with this durable case.",
     "id": 11,
     "imageUrl": "11",
     "name": "Laptop Case",
-    "price": 34.99
+    "price": 34.99,
+    "tags": ["case", "laptop", "durable", "protect"],
+    "deliveryDate": "9999-01-16"
   },
   {
     "description": "Elevate your laptop and improve your posture with this laptop stand.",
     "id": 12,
     "imageUrl": "12",
     "name": "Laptop Stand",
-    "price": 14.99
+    "price": 14.99,
+    "tags": ["stand", "laptop", "elevate", "posture"],
+    "deliveryDate": "9999-01-01"
   }
 ]
