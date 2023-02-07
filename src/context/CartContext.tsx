@@ -56,7 +56,7 @@ const handleQuantity = (state: Set<CartItem>, action: Action) => {
 const switcher    = {
   added            : handleCartAdd,
   "change quantity": handleQuantity,
-  cleared          : () => new Set<CartItem>(),
+  "cleared the cart"          : () => new Set<CartItem>(),
   default          : () => console.error("Invalid action type"),
   "removed an item": (state: Set<CartItem>, action: Action) =>
     setFilter(state, item => item.product.id !== action.payload.product.id),

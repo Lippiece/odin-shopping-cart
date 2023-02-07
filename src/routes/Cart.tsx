@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import CartItem from "../@types/CartItem";
@@ -30,32 +31,38 @@ const Cart = () => {
           setMap(cart, cartItem => (
             <li key={cartItem.product.id}>
               <h3>{`${cartItem.product.name} - ${cartItem.quantity}`}</h3>
-              <button
+              <Button
                 type="button"
                 onClick={changeQuantity(cartItem, 1)}
               >
                 +
-              </button>
-              <button
+              </Button>
+              <Button
                 type="button"
                 onClick={changeQuantity(cartItem, -1)}
               >
                 -
-              </button>
+              </Button>
               <p>{cartItem.product.description}</p>
               <p>{cartItem.product.price}</p>
-              <button
+              <Button
                 type="button"
                 onClick={() =>
                   dispatch({ payload: cartItem, type: "removed an item" })
                 }
               >
                 Remove
-              </button>
+              </Button>
             </li>
           ))}
       </ul>
       <p>Total: {total}</p>
+      <Button
+        type="button"
+        onClick={() => dispatch({ type: "cleared the cart" })}
+      >
+        Clear cart
+      </Button>
     </>
   );
 };
