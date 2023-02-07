@@ -18,7 +18,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   useEffect(() => {
     const updateImage = async () => {
       const source = await import(`../data/images/${product.imageUrl}.png`);
-      console.log(source.default);
       setImageSource(source.default);
     };
     updateImage();

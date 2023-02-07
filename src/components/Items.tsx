@@ -23,7 +23,8 @@ const Item: React.FC<{ product: Product }> = ({ product }) => {
           secondary={product.description}
         />
         <ListItemButton
-          onClick={() =>
+          className="child-clickable"
+          onClick={event =>
             dispatch({
               payload: {
                 product,

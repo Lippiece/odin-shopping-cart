@@ -1,0 +1,6 @@
+a,
+.child-clickable {
+  z-index: 1;
+
+  cursor: pointer;
+}

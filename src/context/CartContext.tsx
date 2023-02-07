@@ -1,6 +1,7 @@
 import { createContext, Dispatch, useContext, useReducer } from "react";
 
 import CartItem from "../@types/CartItem";
+import setFilter from "../logic/setFilter";
 import setMap from "../logic/setMap";
 
 interface Action {
@@ -58,7 +59,7 @@ const switcher    = {
   cleared          : () => new Set<CartItem>(),
   default          : () => console.error("Invalid action type"),
   "removed an item": (state: Set<CartItem>, action: Action) =>
-    state.delete(action.payload),
+    setFilter(state, item => item.product.id !== action.payload.product.id),
   "retrieve local data": (_state: Set<CartItem>, action: Action) =>
     action.payload,
   "store data locally": (state: Set<CartItem>) => {
