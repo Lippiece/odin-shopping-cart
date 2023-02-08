@@ -1,4 +1,8 @@
-// / <reference types="vite/client" />
+// eslint-disable-next-line
+/// <reference types="vitest" />
+// eslint-disable-next-line
+/// <reference types="vite/client" />
+
 import { resolve } from "node:path";
 
 import react from "@vitejs/plugin-react";
