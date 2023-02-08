@@ -1,3 +1,6 @@
+// / <reference types="vite/client" />
+import { resolve } from "node:path";
+
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import viteCompression from "vite-plugin-compression";
@@ -6,7 +9,15 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base   : "/odin-shopping-cart/",
+  base : "/odin-shopping-cart/",
+  build: {
+    rollupOptions: {
+      input: {
+        main    : resolve(__dirname, "index.html"),
+        notFound: resolve(__dirname, "404.html"),
+      },
+    },
+  },
   define : { "process.env": {} },
   plugins: [ react(), viteCompression(), svgr(), ViteImageOptimizer() ],
   resolve: { alias: { util: "util/" } },
