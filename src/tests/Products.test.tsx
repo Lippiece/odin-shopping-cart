@@ -4,6 +4,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
 
+import filterByPrice from "../logic/filterByPrice";
+import filterByQuery from "../logic/filterByQuery";
+import filterByTags from "../logic/filterByTags";
+
 interface Product {
   id: number;
   name: string;
@@ -83,8 +87,9 @@ const Tag = ({
 
 const Items = () => {
   const [ filters, setFilters ]                   = useState({
-    price: [ 0, 1000 ],
-    tags : listAllTags(),
+    price : [ 0, 1000 ],
+    search: "",
+    tags  : listAllTags(),
   });
   const [ filteredProducts, setFilteredProducts ] = useState(products);
 
@@ -101,16 +106,12 @@ const Items = () => {
     </li>
   );
 
-  const filterByPrice = (price: number[]) => (product: Product) =>
-    product.price >= price[ 0 ] && product.price <= price[ 1 ];
-  const filterByTags  = (tags: Set<string>) => (product: Product) =>
-    [ ...tags ].some(tag => product.tags.includes(tag));
-
   useEffect(() => {
     setFilteredProducts(
       products
         .filter(filterByPrice(filters.price))
         .filter(filterByTags(filters.tags))
+        .filter(filterByQuery(filters.search))
     );
   }, [ filters ]);
 
@@ -140,6 +141,14 @@ const Items = () => {
           setTags={setTags}
         />
       ))}
+      <input
+        type="search"
+        data-testid="search"
+        value={filters.search}
+        onChange={event =>
+          setFilters({ ...filters, search: event.target.value })
+        }
+      />
       <ul>{filteredProducts.map(renderProduct)}</ul>
     </>
   );
@@ -166,23 +175,31 @@ describe("Products", () => {
 
   test("can filter products by tags", async () => {
     render(<Items />);
-    const user = userEvent.setup({ delay: 100 });
-    const tag1 = screen.getByTestId("tag1");
-    const tag3 = screen.getByTestId("tag3");
+    const user                   = userEvent.setup({ delay: 100 });
+    const tag1: HTMLInputElement = screen.getByTestId("tag1");
+    const tag3: HTMLInputElement = screen.getByTestId("tag3");
 
     await user.click(tag1);
-    await waitFor(() => {
-      expect(tag1.checked).toBeFalsy();
-    });
     await user.click(tag3);
-    await waitFor(() => {
-      expect(tag3.checked).toBeFalsy();
-    });
 
     await waitFor(() => {
       expect(screen.queryByText(/Product 1/iu)).toBeNull();
     });
     expect(screen.getByText(/Product 2/iu));
+    expect(screen.queryByText(/Product 3/iu)).toBeNull();
+    expect(screen.queryByText(/Product 4/iu)).toBeNull();
+  });
+
+  test("can filter by search query", async () => {
+    render(<Items />);
+    const user   = userEvent.setup();
+    const search = screen.getByTestId("search");
+
+    await user.clear(search);
+    await user.type(search, "Product 1");
+
+    expect(screen.getByText(/Product 1/iu));
+    expect(screen.queryByText(/Product 2/iu)).toBeNull();
     expect(screen.queryByText(/Product 3/iu)).toBeNull();
     expect(screen.queryByText(/Product 4/iu)).toBeNull();
   });

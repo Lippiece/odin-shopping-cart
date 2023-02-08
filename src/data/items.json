@@ -5,8 +5,8 @@
     "imageUrl": "1",
     "name": "Leather Backpack",
     "price": 89.99,
-    "tags": ["leather", "backpack", "everyday", "style"],
-    "deliveryDate": "9999-12-15"
+    "deliveryDate": "9999-12-15",
+    "tags": ["leather", "backpack", "durable"]
   },
   {
     "description": "Stay connected and track your fitness with this sleek smart watch.",
@@ -14,8 +14,8 @@
     "imageUrl": "2",
     "name": "Smart Watch",
     "price": 199.99,
-    "tags": ["smartwatch", "fitness", "connect", "track"],
-    "deliveryDate": "9999-11-12"
+    "deliveryDate": "9999-11-12",
+    "tags": ["smart", "watch", "fitness"]
   },
   {
     "description": "Experience high-quality audio with these noise cancelling headphones.",
@@ -23,8 +23,8 @@
     "imageUrl": "3",
     "name": "Noise Cancelling Headphones",
     "price": 129.99,
-    "tags": ["noise cancelling", "headphones", "high quality", "audio"],
-    "deliveryDate": "9999-10-09"
+    "deliveryDate": "9999-10-09",
+    "tags": ["audio", "headphones", "noise", "cancelling"]
   },
   {
     "description": "Enjoy your favorite music with this portable Bluetooth speaker.",
@@ -32,8 +32,8 @@
     "imageUrl": "4",
     "name": "Bluetooth Speaker",
     "price": 49.99,
-    "tags": ["bluetooth", "speaker", "portable", "music"],
-    "deliveryDate": "9999-09-06"
+    "deliveryDate": "9999-09-06",
+    "tags": ["audio", "portable", "bluetooth"]
   },
   {
     "description": "Listen to your favorite music wirelessly with these Bluetooth headphones.",
@@ -41,8 +41,8 @@
     "imageUrl": "5",
     "name": "Bluetooth Headphones",
     "price": 99.99,
-    "tags": ["bluetooth", "headphones", "music", "wireless"],
-    "deliveryDate": "9999-08-03"
+    "deliveryDate": "9999-08-03",
+    "tags": ["audio", "bluetooth", "headphones"]
   },
   {
     "description": "Enjoy your favorite music with these wireless earbuds.",
@@ -50,8 +50,8 @@
     "imageUrl": "6",
     "name": "Wireless Earbuds",
     "price": 59.99,
-    "tags": ["earbuds", "wireless", "music", "favorite"],
-    "deliveryDate": "9999-07-01"
+    "deliveryDate": "9999-07-01",
+    "tags": ["audio", "wireless", "earbuds"]
   },
   {
     "description": "Experience smooth and precise navigation with this wireless mouse.",
@@ -59,8 +59,8 @@
     "imageUrl": "7",
     "name": "Wireless Mouse",
     "price": 29.99,
-    "tags": ["mouse", "wireless", "navigation", "precise"],
-    "deliveryDate": "9999-05-28"
+    "deliveryDate": "9999-05-28",
+    "tags": ["mouse", "wireless"]
   },
   {
     "description": "Improve your productivity with this wireless keyboard.",
@@ -68,8 +68,8 @@
     "imageUrl": "8",
     "name": "Wireless Keyboard",
     "price": 39.99,
-    "tags": ["keyboard", "wireless", "productivity", "improve"],
-    "deliveryDate": "9999-04-25"
+    "deliveryDate": "9999-04-25",
+    "tags": ["keyboard", "wireless"]
   },
   {
     "description": "Protect your laptop and other valuables with this durable backpack.",
@@ -77,8 +77,8 @@
     "imageUrl": "9",
     "name": "Laptop Backpack",
     "price": 49.99,
-    "tags": ["backpack", "laptop", "valuables", "durable"],
-    "deliveryDate": "9999-03-22"
+    "deliveryDate": "9999-03-22",
+    "tags": ["laptop", "backpack", "durable"]
   },
   {
     "description": "Protect your laptop with this durable sleeve.",
@@ -86,8 +86,8 @@
     "imageUrl": "10",
     "name": "Laptop Sleeve",
     "price": 24.99,
-    "tags": ["sleeve", "laptop", "durable", "protect"],
-    "deliveryDate": "9999-02-19"
+    "deliveryDate": "9999-02-19",
+    "tags": ["laptop", "sleeve", "durable"]
   },
   {
     "description": "Protect your laptop with this durable case.",
@@ -95,8 +95,8 @@
     "imageUrl": "11",
     "name": "Laptop Case",
     "price": 34.99,
-    "tags": ["case", "laptop", "durable", "protect"],
-    "deliveryDate": "9999-01-16"
+    "deliveryDate": "9999-01-16",
+    "tags": ["laptop", "case", "durable"]
   },
   {
     "description": "Elevate your laptop and improve your posture with this laptop stand.",
@@ -104,7 +104,7 @@
     "imageUrl": "12",
     "name": "Laptop Stand",
     "price": 14.99,
-    "tags": ["stand", "laptop", "elevate", "posture"],
-    "deliveryDate": "9999-01-01"
+    "deliveryDate": "9999-01-01",
+    "tags": ["laptop", "stand", "posture"]
   }
 ]

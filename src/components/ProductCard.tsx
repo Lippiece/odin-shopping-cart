@@ -28,10 +28,10 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         sx={{
           maxWidth : 345,
           position : "fixed",
-          right    : 0,
-          top      : "50%",
-          transform: "translateY(-50%)",
-          zIndex   : 1,
+          right    : "2%",
+          top      : "80%",
+          transform: "translateY(-80%)",
+          zIndex   : 2,
         }}
       >
         <CardHeader

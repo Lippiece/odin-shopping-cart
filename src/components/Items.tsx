@@ -1,67 +1,83 @@
 import Add from "@mui/icons-material/Add";
+import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Product from "../@types/Product";
-import { useCartDispatch } from "../context/CartContext";
+import { useCart, useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
+import filterByPrice from "../logic/filterByPrice";
+import filterByQuery from "../logic/filterByQuery";
+import filterByTags from "../logic/filterByTags";
+import getHighestPrice from "../logic/getHighestPrice";
+import getLowestPrice from "../logic/getLowestPrice";
+import listAllTags from "../logic/listAllTags";
+import FilterBox from "./FilterBox";
 
 interface ItemsProps {
   random: boolean;
 }
 const Items: React.FC<ItemsProps> = ({ random }) => {
-  return (
-    <List>
-      {random ? getRandomItems(3).map(displayItem) : products.map(displayItem)}
-    </List>
-  );
-};
+  const cart                                      = useCart();
+  const [ filters, setFilters ]                   = useState({
+    price : [ getLowestPrice(), getHighestPrice() ],
+    search: "",
+    tags  : listAllTags(),
+  });
+  const [ filteredProducts, setFilteredProducts ] = useState(products);
 
-const Item: React.FC<{ product: Product }> = ({ product }) => {
-  const dispatch = useCartDispatch();
-  return (
-    <ListItem>
+  const setPrice = (range: number[]) =>
+    setFilters({ ...filters, price: range });
+  const setTags  = (tags: Set<string>) => setFilters({ ...filters, tags });
+
+  const renderProduct = (product: Product): JSX.Element => (
+    <ListItem key={product.id}>
       <ListItemButton
         component={Link}
         to={`/odin-shopping-cart/products/${product.id}`}
       >
         <ListItemText
           primary={product.name}
-          secondary={product.description}
+          secondary={product.tags.join(", ")}
         />
-        <ListItemButton
-          className="child-clickable"
-          onClick={() =>
-            dispatch({
-              payload: {
-                product,
-                quantity: 1,
-              },
-              type: "added",
-            })
-          }
-        >
-          <ListItemIcon>
-            <Add />
-          </ListItemIcon>
-        </ListItemButton>
+        <ListItemText primary={product.price} />
       </ListItemButton>
     </ListItem>
+  );
+
+  useEffect(() => {
+    setFilteredProducts(
+      [ ...products ]
+        .filter(filterByPrice(filters.price))
+        .filter(filterByTags(filters.tags))
+        .filter(filterByQuery(filters.search))
+    );
+  }, [ filters ]);
+
+  return (
+    <>
+      {!random && (
+        <FilterBox
+          filters={filters}
+          setFilters={setFilters}
+          setPrice={setPrice}
+          setTags={setTags}
+        />
+      )}
+      <List>
+        {random
+          ? getRandomItems(3).map(renderProduct)
+          : filteredProducts.map(renderProduct)}
+      </List>
+    </>
   );
 };
 
 const getRandomItems = (count: number) =>
   [ ...products ].sort(() => Math.random() - 0.5).slice(0, count);
-
-const displayItem = (product: any) => (
-  <Item
-    product={product}
-    key={product.id}
-  />
-);
 
 export default Items;
