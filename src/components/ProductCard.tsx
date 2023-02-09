@@ -1,9 +1,12 @@
 import Close from "@mui/icons-material/Close";
-import { CardHeader, CardMedia } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,8 +15,9 @@ import Product from "../@types/Product";
 import { useCartDispatch } from "../context/CartContext";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
-  const dispatch                        = useCartDispatch();
-  const [ imageSource, setImageSource ] = useState(product.imageUrl);
+  const dispatch                          = useCartDispatch();
+  const [ imageSource, setImageSource ]   = useState(product.imageUrl);
+  const [ snackbarOpen, setSnackbarOpen ] = useState(false);
 
   useEffect(() => {
     const updateImage = async () => {
@@ -55,18 +59,27 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <CardActions>
           <Button
             size="small"
-            onClick={() =>
-              dispatch({
+            onClick={() => {
+              setSnackbarOpen(true);
+              return dispatch({
                 payload: {
                   product,
                   quantity: 1,
                 },
                 type: "added",
-              })
-            }
+              });
+            }}
           >
             Add to cart
           </Button>
+          <Snackbar
+            open={snackbarOpen}
+            onClose={() => setSnackbarOpen(false)}
+            autoHideDuration={6000}
+            anchorOrigin={{ horizontal: "right", vertical: "top" }}
+          >
+            <Alert severity="success">Added to cart</Alert>
+          </Snackbar>
           <Button size="small">
             <Link to="/odin-shopping-cart/products">
               <Close />

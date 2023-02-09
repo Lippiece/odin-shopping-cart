@@ -4,13 +4,14 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { maxWidth } from "@mui/system";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Product from "../@types/Product";
 import { useCart, useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
-import {filterByDelivery} from "../logic/filterByDelivery";
+import { filterByDelivery } from "../logic/filterByDelivery";
 import filterByPrice from "../logic/filterByPrice";
 import filterByQuery from "../logic/filterByQuery";
 import filterByTags from "../logic/filterByTags";
@@ -46,6 +47,10 @@ const Items: React.FC<ItemsProps> = ({ random }) => {
           primary={product.name}
           secondary={product.tags.join(", ")}
         />
+        <ListItemText
+          primary={product.deliveryDate.slice(5, product.deliveryDate.length)}
+          secondary={"Delivery in"}
+        />
         <ListItemText primary={product.price} />
       </ListItemButton>
     </ListItem>
@@ -71,7 +76,7 @@ const Items: React.FC<ItemsProps> = ({ random }) => {
           setTags={setTags}
         />
       )}
-      <List>
+      <List sx={{ maxWidth: 500 }}>
         {random
           ? getRandomItems(3).map(renderProduct)
           : filteredProducts.map(renderProduct)}
