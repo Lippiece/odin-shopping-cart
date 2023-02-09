@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Product from "../@types/Product";
 import { useCart, useCartDispatch } from "../context/CartContext";
 import products from "../data/items.json";
+import {filterByDelivery} from "../logic/filterByDelivery";
 import filterByPrice from "../logic/filterByPrice";
 import filterByQuery from "../logic/filterByQuery";
 import filterByTags from "../logic/filterByTags";
@@ -24,9 +25,10 @@ interface ItemsProps {
 const Items: React.FC<ItemsProps> = ({ random }) => {
   const cart                                      = useCart();
   const [ filters, setFilters ]                   = useState({
-    price : [ getLowestPrice(), getHighestPrice() ],
-    search: "",
-    tags  : listAllTags(),
+    daysTillDelivery: 0,
+    price           : [ getLowestPrice(), getHighestPrice() ],
+    search          : "",
+    tags            : listAllTags(),
   });
   const [ filteredProducts, setFilteredProducts ] = useState(products);
 
@@ -55,6 +57,7 @@ const Items: React.FC<ItemsProps> = ({ random }) => {
         .filter(filterByPrice(filters.price))
         .filter(filterByTags(filters.tags))
         .filter(filterByQuery(filters.search))
+        .filter(filterByDelivery(filters.daysTillDelivery))
     );
   }, [ filters ]);
 

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import getHighestPrice from "../logic/getHighestPrice";
 import getLowestPrice from "../logic/getLowestPrice";
+import getMaxDeliveryDays from "../logic/getMaxDeliveryDays";
 import listAllTags from "../logic/listAllTags";
 
 const addTag    = (tag: string) => (tags: Set<string>) => {
@@ -17,8 +18,7 @@ const removeTag = (tag: string) => (tags: Set<string>) => {
   tags.delete(tag);
   return tags;
 };
-
-const Tag = ({
+const Tag       = ({
   tags,
   setTags,
   tag,
@@ -63,8 +63,13 @@ const FilterBox = ({
   setPrice,
   setTags,
 }: {
-  filters: unknown;
-  setFilters: unknown;
+  filters: {
+    daysTillDelivery: number;
+    price: number[];
+    search: string;
+    tags: Set<string>;
+  };
+  setFilters: (filters) => void;
   setPrice: (range: number[]) => any;
   setTags: (tags: Set<string>) => any;
 }) => {
@@ -136,6 +141,33 @@ const FilterBox = ({
           setFilters({ ...filters, search: event.target.value })
         }
       />
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        gap={5}
+        alignItems={"center"}
+      >
+        <TextField
+          type="number"
+          value={filters.daysTillDelivery}
+          label="Delivery in (days)"
+          onChange={event =>
+            setFilters({
+              ...filters,
+              daysTillDelivery: Number(event.target.value),
+            })
+          }
+        />
+        <Slider
+          min={0}
+          step={10}
+          max={getMaxDeliveryDays()}
+          value={filters.daysTillDelivery}
+          onChange={(_, value) =>
+            setFilters({ ...filters, daysTillDelivery: value as number })
+          }
+        />
+      </Box>
     </Box>
   );
 };
