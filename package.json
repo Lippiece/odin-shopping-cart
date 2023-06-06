@@ -23,7 +23,7 @@
     "gh-pages": "^4.0.0",
     "jsdom": "^20.0.3",
     "sharp": "^0.31.3",
-    "vite": "^4.0.4",
+    "vite": "^4.0.5",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-image-optimizer": "^1.0.7",
     "vite-plugin-svgr": "^2.4.0",
